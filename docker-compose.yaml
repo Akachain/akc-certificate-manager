@@ -1,0 +1,13 @@
+version: '3.5'
+
+services:
+  tool:
+    container_name: management-certificate
+    image: test-openssl:latest
+    environment:
+      - ROOT_CA_CERT_PATH=/data/root-ca
+      - INTERMEDIATE_CA_CERT_PATH=/data/intermediate-ca
+      - PEER_CERT_PATH=/data/peer
+      - USER_CERT_PATH=/data/user
+    volumes:
+      - ./example/:/data/
