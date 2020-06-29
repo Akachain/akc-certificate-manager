@@ -91,7 +91,7 @@ function generateCert() {
             cat "$TEMPLATE_CONFIG_PATH/crt.conf" | sed -e "s/{{CERT_SUBJ}}/$DEFAULT_CERT_SUBJ/g" > $CERT_CONFIG_PATH
         fi
         if [ "$TYPE" != "user" ] && [ "$SANS" != "" ]; then
-            cat "$CERT_CONFIG_PATH/crt.conf" | sed -e "s/{{SANS}}/$SANS/g" > $CERT_CONFIG_PATH
+            cat "$CERT_CONFIG_PATH" | sed -e "s/{{SANS}}/$SANS/g" > $CERT_CONFIG_PATH
         fi
     fi
     set -x
