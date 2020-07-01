@@ -84,3 +84,14 @@ export CERT_SUBJ="0.OU = peer\n1.OU = Org1\n2.OU = akc\nCN = Org1"
 
 Copy content of $CERT_STRING_PATH and replace value of identity.certificate in crypto-path json file.
 
+## II. Inspect and Check Expire Date Of Signed Certificate
+
+### 1. Inspect
+```bash
+./checker.sh inspect -f example/intermediate-ca/signcerts/ica-cert.pem
+```
+
+### 2. Check expire date
+```bash
+./checker.sh check-expire -f example/intermediate-ca/signcerts/ica-cert.pem
+```
