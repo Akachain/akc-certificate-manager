@@ -21,7 +21,7 @@ export CHAIN_PATH=/data/intermediate-ca/output/ca-chain.pem
 export CERT_SUBJ="C = US\nST = North Carolina\nO = Hyperledger\nOU = client\nCN = rca-akc-admin"
 
 ### Run script ###
-./script.sh auto ca
+./main.sh generate auto ca
 ```
 
 ### 2. Generate Peer Cert
@@ -44,7 +44,7 @@ export CERT_PATH=/data/peer/output/peer-cert.pem
 export CERT_SUBJ="C = VN\nST = Hanoi\nOU = peer\nCN = peer0"
 
 ### Run script ###
-./script.sh auto peer
+./main.sh generate auto peer
 ```
 
 ### 3. Generate User Cert
@@ -77,7 +77,7 @@ export CERT_STRING_PATH=/data/user/output/user-cert.txt
 export CERT_SUBJ="0.OU = peer\n1.OU = Org1\n2.OU = akc\nCN = Org1"
 
 ### Run script ###
-./script.sh auto user
+./main.sh generate auto user
 ```
 
 #### c. How to use a new cert
@@ -88,10 +88,12 @@ Copy content of $CERT_STRING_PATH and replace value of identity.certificate in c
 
 ### 1. Inspect
 ```bash
-./checker.sh inspect -f example/intermediate-ca/signcerts/ica-cert.pem
+./main.sh checker inspect -f /data/intermediate-ca/signcerts/ica-cert.pem
 ```
 
 ### 2. Check expire date
 ```bash
-./checker.sh check-expire -f example/intermediate-ca/signcerts/ica-cert.pem
+./main.sh checker check-expire -f /data/intermediate-ca/signcerts/ica-cert.pem
+
+./main.sh checker check-expire -f /data/root-ca/signcerts/rca-cert.pem
 ```

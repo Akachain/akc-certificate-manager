@@ -5,7 +5,7 @@ set -e
 
 function printHelp() {
     echo "Usage:"
-    echo "  script.sh <GenerateMode> <TypeOfTarget>"
+    echo "  generate.sh <GenerateMode> <TypeOfTarget>"
     echo "    <GenerateMode>"
     echo "      - 'csr' - Generate certificate request"
     echo "      - 'cert' - Generate signed certificate"
@@ -17,9 +17,9 @@ function printHelp() {
     echo "      - 'user' - User"
     echo
     echo " Examples:"
-    echo "  script.sh csr ca"
-    echo "  script.sh crt peer"
-    echo "  script.sh auto user"
+    echo "  generate.sh csr ca"
+    echo "  generate.sh crt peer"
+    echo "  generate.sh auto user"
 }
 
 function checkCSREnv() {

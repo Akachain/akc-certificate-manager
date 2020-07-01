@@ -41,12 +41,10 @@ function checkExpire() {
         exit 0
     fi
     enddate=$(openssl x509 -enddate -noout -in $FILE_PATH)
-    expireInDay=$(openssl x509 -checkend 10 -noout -in $FILE_PATH)
     now=$(date -u)
     echo "Certificate Path: $FILE_PATH"
     echo "Certificate Status: $enddate"
     echo "Timenow: $now"
-    echo $expireInDay
 
     # https://stackoverflow.com/a/31718838/8461456
     if openssl x509 -checkend 86400 -noout -in $FILE_PATH
