@@ -3,7 +3,7 @@ version: '3.5'
 services:
   tool:
     container_name: management-certificate
-    image: test-openssl:latest
+    image: registry.gitlab.com/akachain/digital-certificate-manager:latest
     environment:
       - ROOT_CA_CERT_PATH=/data/root-ca
       - INTERMEDIATE_CA_CERT_PATH=/data/intermediate-ca
