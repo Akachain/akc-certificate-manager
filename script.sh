@@ -86,12 +86,9 @@ function generateCert() {
         echo "$CERT_CONFIG_PATH does not exist"
         # Generate CERT_CONFIG_PATH from template
         if [ "$CERT_SUBJ" != "" ]; then
-            cat "$TEMPLATE_CONFIG_PATH/crt.conf" | sed -e "s/{{CERT_SUBJ}}/$CERT_SUBJ/g" > $CERT_CONFIG_PATH
+            cat "$TEMPLATE_CONFIG_PATH/crt.conf" | sed -e "s/{{CERT_SUBJ}}/$CERT_SUBJ/g" -e "s/{{SANS}}/$SANS/g" > $CERT_CONFIG_PATH
         else
-            cat "$TEMPLATE_CONFIG_PATH/crt.conf" | sed -e "s/{{CERT_SUBJ}}/$DEFAULT_CERT_SUBJ/g" > $CERT_CONFIG_PATH
-        fi
-        if [ "$TYPE" != "user" ] && [ "$SANS" != "" ]; then
-            cat "$CERT_CONFIG_PATH" | sed -e "s/{{SANS}}/$SANS/g" > $CERT_CONFIG_PATH
+            cat "$TEMPLATE_CONFIG_PATH/crt.conf" | sed -e "s/{{CERT_SUBJ}}/$DEFAULT_CERT_SUBJ/g" -e "s/{{SANS}}/$SANS/g" > $CERT_CONFIG_PATH
         fi
     fi
     set -x
@@ -108,6 +105,11 @@ function generateCert() {
         # Generate ca-chain.pem
         cat $FABRIC_CA_SERVER_CERT $CERT_PATH > $CHAIN_PATH
         cat $CHAIN_PATH
+    fi
+    if [ "$TYPE" == "user" ] && [ "$CERT_STRING_PATH" != "" ]; then
+        # Generate cert.txt
+        awk '{printf "%s\\n", $0}' $CERT_PATH > $CERT_STRING_PATH
+        cat $CERT_STRING_PATH
     fi
     set +x
 }
@@ -136,7 +138,7 @@ elif [ "$TYPE" == "ca" ]; then
     DEFAULT_CERT_SUBJ="C = US\nST = North Carolina\nO = Hyperledger\nOU = client\nCN = rca-akc-admin"
 else
     TEMPLATE_CONFIG_PATH=$(dirname "$0")"/template/peer"
-    DEFAULT_CERT_SUBJ="C = VN\nST = Hanoi\nL = \nOU = peer\nCN = peer0"
+    DEFAULT_CERT_SUBJ="C = VN\nST = Hanoi\nOU = peer\nCN = peer0"
 fi
 
 echo "Generate for type: $TYPE"
