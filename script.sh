@@ -1,10 +1,25 @@
 #!/bin/bash
 set -e
 
-function error() {
-    COLOR_REST="$(tput sgr0)"
-    COLOR_RED="$(tput setaf 1)"
-    printf "%s%s%s\n" $COLOR_RED "$1" $COLOR_REST
+. utils.sh
+
+function printHelp() {
+    echo "Usage:"
+    echo "  script.sh <GenerateMode> <TypeOfTarget>"
+    echo "    <GenerateMode>"
+    echo "      - 'csr' - Generate certificate request"
+    echo "      - 'cert' - Generate signed certificate"
+    echo "      - 'auto' - Automatic generate from CSR to CRT"
+    echo
+    echo "    <TypeOfTarget>"
+    echo "      - 'ca' - Intermediate CA"
+    echo "      - 'peer' - Peer"
+    echo "      - 'user' - User"
+    echo
+    echo " Examples:"
+    echo "  script.sh csr ca"
+    echo "  script.sh crt peer"
+    echo "  script.sh auto user"
 }
 
 function checkCSREnv() {
@@ -55,10 +70,6 @@ function checkCertEnv() {
     if [ $status -eq 1 ]; then
         exit $status
     fi
-}
-
-function printHelp() {
-    echo Help
 }
 
 function generateCSR() {
