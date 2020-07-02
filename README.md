@@ -93,7 +93,7 @@ Copy content of $CERT_STRING_PATH and replace value of identity.certificate in c
 
 ### 2. Check expire date
 ```bash
-./main.sh checker check-expire -f /data/intermediate-ca/signcerts/ica-cert.pem
+./main.sh checker expire -f /data/intermediate-ca/signcerts/ica-cert.pem
 
-./main.sh checker check-expire -f /data/root-ca/signcerts/rca-cert.pem
+./main.sh checker expire -f /data/root-ca/signcerts/rca-cert.pem
 ```
