@@ -95,11 +95,16 @@ function generateCert() {
     # CERT_CONFIG_PATH does not exist
     if [ ! -f "$CERT_CONFIG_PATH" ]; then
         echo "$CERT_CONFIG_PATH does not exist"
+        local template_cert_conf="crt.conf"
+        if [ "${SANS}" != "" ]; then
+            template_cert_conf="crt-sans.conf"
+        fi
+
         # Generate CERT_CONFIG_PATH from template
         if [ "$CERT_SUBJ" != "" ]; then
-            cat "$TEMPLATE_CONFIG_PATH/crt.conf" | sed -e "s/{{CERT_SUBJ}}/$CERT_SUBJ/g" -e "s/{{SANS}}/$SANS/g" > $CERT_CONFIG_PATH
+            cat "$TEMPLATE_CONFIG_PATH/$template_cert_conf" | sed -e "s/{{CERT_SUBJ}}/$CERT_SUBJ/g" -e "s/{{SANS}}/$SANS/g" > $CERT_CONFIG_PATH
         else
-            cat "$TEMPLATE_CONFIG_PATH/crt.conf" | sed -e "s/{{CERT_SUBJ}}/$DEFAULT_CERT_SUBJ/g" -e "s/{{SANS}}/$SANS/g" > $CERT_CONFIG_PATH
+            cat "$TEMPLATE_CONFIG_PATH/$template_cert_conf" | sed -e "s/{{CERT_SUBJ}}/$DEFAULT_CERT_SUBJ/g" -e "s/{{SANS}}/$SANS/g" > $CERT_CONFIG_PATH
         fi
     fi
     set -x

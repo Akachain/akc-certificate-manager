@@ -1,4 +1,8 @@
 # Digital Certificate Manager
+How to use:
+```shell
+docker-compose up -d
+```
 ## I. Generate New Signed Certificate
 ### 1. Generate ICA
 ```shell
@@ -24,24 +28,47 @@ export CERT_SUBJ="C = US\nST = North Carolina\nO = Hyperledger\nOU = client\nCN 
 ./main.sh generate auto ca
 ```
 
-### 2. Generate Peer Cert
+### 2. Generate Peer Or Orderer Cert
+#### a. Prepare
+- You should create a folder to save all material include a private key, key-pair of the CA. Example: 
+```log
+cert
+├── ca
+│   ├── cert.pem
+│   └── key.pem
+└── peer
+    └── peer0-key.pem
+```
+- Require a private key of the peer, key-pair of the CA
+#### b. Run tool use docker-compose
+- Edit 'docker-compose.yaml' to specify your folder you create in the previous step
+- Apply docker-compose.yaml
+```
+docker-compose up -d
+```
+#### c. Exec command into the management-certificate cli container
 ```shell
-### Required ###
-#### Generate CSR Input
+docker exec -it management-certificate bash
+# Input Required #
+## For Generate CSR
 export PRIV_KEY_PATH=/data/peer/keystore/peer-key.pem
-#### Generate CSR Output
-export CSR_CONFIG_PATH=/data/peer/output/csr.conf
-export CSR_PATH=/data/peer/output/peer.csr
-#### Generate CRT Input
+## For Generate CRT
 export FABRIC_CA_SERVER_CERT=/data/intermediate-ca/signcerts/ica-cert.pem
 export FABRIC_CA_SERVER_KEY=/data/intermediate-ca/keystore/ica-key.pem
 export EXRIRY_DAYS=1
-#### Generate CRT Output
+
+# Output Path Required #
+#### For Generate CSR
+export CSR_CONFIG_PATH=/data/peer/output/csr.conf
+export CSR_PATH=/data/peer/output/peer.csr
+
+#### For Generate CERT
 export CERT_CONFIG_PATH=/data/peer/output/crt.conf
 export CERT_PATH=/data/peer/output/peer-cert.pem
 
 ### Optional ###
 export CERT_SUBJ="C = VN\nST = Hanoi\nOU = peer\nCN = peer0"
+export SANS="DNS.1 = peer0-akc.akc\nDNS.2 = peer0-akc.akachain.io"
 
 ### Run script ###
 ./main.sh generate auto peer
