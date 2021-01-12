@@ -25,5 +25,5 @@ spec:
      volumes:
        - name: data
          nfs:
-          server: fs-8b4755ca.efs.ap-southeast-1.amazonaws.com
-          path: /pvs/efs-pvc-25693432-00f4-46ca-8f24-3649dec94dfd/cluster-tuanpa/akc-ca-data/
+          server: fs-xxxxxxxx.efs.ap-southeast-1.amazonaws.com
+          path: /pvs/efs-pvc-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxx/cluster-example/akc-ca-data/
