@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: default
+  name: ca-cli
+spec:
+  serviceName: ca-cli
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ca-cli
+  template:
+    metadata:
+      labels:
+       app: ca-cli
+    spec:
+     containers:
+       - name: ca-cli
+         image: hyperledger/fabric-ca:1.4.1
+         command: ["sh"]
+         args:  ["-c", "tail -f /dev/null"]
+         volumeMounts:
+          - mountPath: /data
+            name: data
+     volumes:
+       - name: data
+         nfs:
+          server: fs-8b4755ca.efs.ap-southeast-1.amazonaws.com
+          path: /pvs/efs-pvc-25693432-00f4-46ca-8f24-3649dec94dfd/cluster-tuanpa/akc-ca-data/
