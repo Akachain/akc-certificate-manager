@@ -3,13 +3,6 @@ version: '3.5'
 services:
   tool:
     container_name: management-certificate
-    image: registry.gitlab.com/akachain/digital-certificate-manager:latest
-    environment:
-      - ROOT_CA_CERT_PATH=/data/root-ca
-      - INTERMEDIATE_CA_CERT_PATH=/data/intermediate-ca
-      - PEER_CERT_PATH=/data/peer
-      - USER_CERT_PATH=/data/user
+    image: test-cert
     volumes:
-      - ./example-file/:/data/
-      - ./example-check-folder-version-mambav1/:/mambav1/
-      - ./example-check-folder-version-cryptogen/:/cryptogen/
+      - ./crypto-config/:/data/
