@@ -3,8 +3,10 @@
 LIST_CERT_IN_FOLDER=()
 
 function getUniqCert() {
-    local listCertPath=$(find $FOLDER_PATH -name "*.pem")
-    local arrayCertPath=($listCertPath)
+    local listPemPath=$(find $FOLDER_PATH -name "*.pem")
+    local listCrtPath=$(find $FOLDER_PATH -name "*.crt")
+    local arrayCertPath=($listPemPath)
+    arrayCertPath+=(${listCrtPath[@]})
     local arrayCertPathUniq=()
     local detectDuplicate=()
     for certPath in "${arrayCertPath[@]}"; do
