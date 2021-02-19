@@ -141,6 +141,7 @@ In efs pod:
 - Expire in: 1 year
 - Location:
     ```
+    # Peer
     /tmp/artifact/${CLUSTER_NAME}/akc-ca-data/crypto-config/peerOrganizations/${ORG_DOMAIN}/msp/admincerts/cert.pem
     /tmp/artifact/${CLUSTER_NAME}/akc-ca-data/crypto-config/peerOrganizations/${ORG_DOMAIN}/users/admin/msp/signcerts/cert.pem
     /tmp/artifact/${CLUSTER_NAME}/akc-ca-data/crypto-config/peerOrganizations/${ORG_DOMAIN}/users/admin/msp/admincerts/cert.pem
@@ -149,6 +150,7 @@ In efs pod:
     /tmp/artifact/${CLUSTER_NAME}/akc-ca-data/orgs/${ORG_NAME}/admin/msp/signcerts/cert.pem
     /tmp/artifact/${CLUSTER_NAME}/akc-ca-data/orgs/${ORG_NAME}/admin/msp/admincerts/cert.pem
 
+    # Orderer
     /tmp/artifact/${CLUSTER_NAME}/akc-ca-data/crypto-config/ordererOrganizations/${ORDERER_DOMAIN}/msp/admincerts/cert.pem
     /tmp/artifact/${CLUSTER_NAME}/akc-ca-data/crypto-config/ordererOrganizations/${ORDERER_DOMAIN}/users/admin/msp/signcerts/cert.pem
     /tmp/artifact/${CLUSTER_NAME}/akc-ca-data/crypto-config/ordererOrganizations/${ORDERER_DOMAIN}/users/admin/msp/admincerts/cert.pem
@@ -156,6 +158,15 @@ In efs pod:
     /tmp/artifact/${CLUSTER_NAME}/akc-ca-data/orgs/${ORDERER_NAME}/msp/admincerts/cert.pem
     /tmp/artifact/${CLUSTER_NAME}/akc-ca-data/orgs/${ORDERER_NAME}/admin/msp/signcerts/cert.pem
     /tmp/artifact/${CLUSTER_NAME}/akc-ca-data/orgs/${ORDERER_NAME}/admin/msp/admincerts/cert.pem
+    ```
+- Key Location:
+In efs pod:
+    ```bash
+    # Peer
+    /tmp/artifact/${CLUSTER_NAME}/akc-ca-data/crypto-config/peerOrganizations/${ORG_DOMAIN}/users/admin/msp/keystore/key.pem
+
+    # Orderer
+    /tmp/artifact/${CLUSTER_NAME}/akc-ca-data/crypto-config/ordererOrganizations/${ORDERER_DOMAIN}/users/admin/msp/keystore/key.pem
     ```
 
 7. User is used by application
